@@ -4,8 +4,9 @@ output:
   html_document: default
 ---
 ---
-title: "Group Project"
-author: "Sumanth, Manoj, Narendra"
+title: "Data Visualization Project"
+author: "Manoj Kumar Vallabhaneni
+"
 date: "2024-05-04"
 output:
   word_document: default
