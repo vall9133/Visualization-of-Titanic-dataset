@@ -48,7 +48,7 @@ This project focuses on **exploratory data analysis (EDA)** and **interactive vi
 
 <p align="center">
   <img src="exmp1.png" width="400"/>
-  <img src="iexmp2.png" width="400"/>
+  <img src="exmp2.png" width="400"/>
 </p>
 
 ---
