@@ -47,8 +47,8 @@ This project focuses on **exploratory data analysis (EDA)** and **interactive vi
 ## 🖼️ Sample Visualizations
 
 <p align="center">
-  <img src="images/survival_by_class.png" width="400"/>
-  <img src="images/survival_count.png" width="400"/>
+  <img src="exmp1.png" width="400"/>
+  <img src="iexmp2.png" width="400"/>
 </p>
 
 ---
