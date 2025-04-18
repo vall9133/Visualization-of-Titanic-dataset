@@ -1,0 +1,210 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+---
+title: "Group Project"
+author: "Sumanth, Manoj, Narendra"
+date: "2024-05-04"
+output:
+  word_document: default
+  html_document: default
+  always_allow_html: true
+  pdf_document: default
+  ---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(tinytex)
+library(foreign)
+library(dygraphs)
+library(tidyverse)
+library(readxl)
+library(rstudioapi)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(ggiraphExtra)
+library(maps)
+library(knitr)
+library(corrplot)
+library(gridExtra)
+
+```
+
+
+```{r}
+titanic <- read.csv("Titanic.csv")
+head(titanic,5)
+```
+
+
+```{r}
+# Filter out missing values in the "Survived" column
+titanic <- titanic %>% filter(!is.na(Survived))
+```
+
+
+
+
+```{r}
+ggplot(data = titanic, aes(x = Age)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", color = "black") +
+  labs(x = "Age", y = "Count") +
+  ggtitle("Age Distribution of Passengers")
+
+```
+```{r}
+titanic %>%
+  filter(!is.na(Age)) %>%
+  mutate(Age_Group = cut(Age, breaks = c(0, 18, 30, 50, Inf), labels = c("0-18", "19-30", "31-50", "51+"))) %>%
+  group_by(Age_Group) %>%
+  summarise(Survival_Rate = mean(Survived)) %>%
+  ggplot(aes(x = Age_Group, y = Survival_Rate)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black") +
+  labs(x = "Age Group", y = "Survival Rate") +
+  ggtitle("Survival Rate by Age Group")
+
+```
+
+
+
+```{r}
+# Bar plot of Survived column
+ggplot(data = titanic, aes(x = factor(Survived))) +
+  geom_bar(fill="skyblue") +
+  labs(x = "Survived", y = "Count")
+```
+
+
+
+
+
+```{r}
+# Group by Sex and calculate survival rate
+survival_by_sex <- titanic %>%
+  group_by(Sex) %>%
+  summarise(survival_rate = mean(Survived))
+
+# Bar plot of survival rate by Sex
+ggplot(data = survival_by_sex, aes(x = Sex, y = survival_rate)) +
+  geom_col(fill="skyblue") +
+  labs(x = "Sex", y = "Survival Rate")
+```
+
+```{r}
+# Group by Pclass and calculate survival rate
+survival_by_class <- titanic %>%
+  group_by(Class) %>%
+  summarise(survival_rate = mean(Survived))
+
+# Bar plot of survival rate by Pclass
+ggplot(data = survival_by_class, aes(x = factor(Class), y = survival_rate)) +
+  geom_col(fill="skyblue") +
+  labs(x = "Class", y = "Survival Rate")
+
+```
+```{r}
+survival_by_dept <- titanic %>%
+  filter(!is.na(Dept)) %>%  # Exclude rows with NA in the "dept" column
+  group_by(Dept) %>%
+  summarise(survival_rate = mean(Survived))
+
+# Bar plot of survival rate by department
+ggplot(data = survival_by_dept, aes(x = Dept, y = survival_rate)) +
+  geom_col(fill = "skyblue") +
+  labs(x = "Department", y = "Survival Rate")
+
+```
+
+```{r}
+ggplot(data = titanic, aes(x = factor(Class), fill = factor(Survived))) +
+  geom_bar() +
+  facet_wrap(~Sex) +
+  labs(x = "Class", y = "Count", fill = "Survived") +
+  ggtitle("Survival Count by Class and Sex")
+
+
+
+```
+
+
+
+
+
+
+`
+```{r}
+# Group by Age and calculate survival rate
+survival_by_age <- titanic %>%
+  group_by(Age) %>%
+  summarise(survival_rate = mean(Survived))
+
+# Line plot of survival rate by Age
+ggplot(data = survival_by_age, aes(x = Age, y = survival_rate)) +
+  geom_line() +
+  labs(x = "Age", y = "Survival Rate")
+
+```
+```{r}
+library(plotly)
+
+# Scatter plot of Fare vs. Age colored by Survived
+interact <- ggplot(data = titanic, aes(x = Age, y = Fare, color = factor(Survived))) +
+  geom_point() +
+  labs(x = "Age", y = "Fare", color = "Survived") +
+  ggtitle("Fare vs. Age Colored by Survival")
+
+# Convert ggplot to plotly
+interactive <- ggplotly(interact)
+
+# Show interactive plot
+interactive
+```
+
+
+
+
+
+```{r}
+
+# Calculate survival rate by Sex, Class, and Age
+survival_by_group <- titanic %>%
+  group_by(Sex, Class, Age) %>%
+  summarise(survival_rate = mean(Survived))
+
+# Create an interactive bar plot using plotly
+plotly_bar_plot <- ggplot(data = survival_by_group, aes(x = interaction(Sex, Class, Age), y = survival_rate)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  labs(x = "Sex, Class, Age", y = "Survival Rate") +
+  ggtitle("Survival Rate by Sex, Class, and Age") +
+  theme_minimal()
+
+plotly_bar_plot <- ggplotly(plotly_bar_plot)
+plotly_bar_plot
+
+
+```
+```{r}
+# Subset the data for survivors and non-survivors
+survivors <- titanic$Age[titanic$Survived == 1]
+non_survivors <- titanic$Age[titanic$Survived == 0]
+
+# Perform the t-test
+t_test_result <- t.test(survivors, non_survivors)
+
+# Print the results
+t_test_result
+# Subset the data for survivors and non-survivors
+
+
+```
+
+
+
+
