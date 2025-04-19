@@ -66,14 +66,18 @@ This project focuses on **exploratory data analysis (EDA)** and **interactive vi
 
 ## ▶️ How to Run
 
+## ▶️ How to Run
+
 1. **Clone the repository:**
 
-```bash
-git clone https://github.com/vall9133/Visualization-of-Titanic-dataset.git
-Open the .Rmd file in RStudio
+   ```bash
+   git clone https://github.com/vall9133/Visualization-of-Titanic-dataset.git
+  
+2.Open the .Rmd file in RStudio.  
 
-Install required libraries if missing:
-install.packages(c("tidyverse", "plotly", "ggplot2", "dplyr", "dygraphs", "ggiraphExtra", "corrplot"))
-Click "Knit" in RStudio to render the output in HTML or Word format.
+3.Install required libraries (if not already installed):  
 
+install.packages(c("tidyverse", "plotly", "ggplot2", "dplyr", "dygraphs", "ggiraphExtra", "corrplot"))  
+
+4.Click "Knit" in RStudio to render the output in HTML or Word format.
 
