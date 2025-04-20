@@ -66,8 +66,6 @@ This project focuses on **exploratory data analysis (EDA)** and **interactive vi
 
 ## ▶️ How to Run
 
-## ▶️ How to Run
-
 1. **Clone the repository:**
 
    ```bash
